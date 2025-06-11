@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology for Youth - Digital Literacy Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px;
+            display: none;
+            position: relative;
+            background: white;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            color: white;
+            padding: 40px 60px;
+            margin: -60px -60px 40px -60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .slide-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .slide-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .slide-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(78, 115, 223, 0.3);
+        }
+
+        .logo-icon::before {
+            content: '💡';
+            font-size: 32px;
+            position: relative;
+            z-index: 2;
+            filter: brightness(1.2);
+        }
+
+        .logo-icon::after {
+            content: '⚙️';
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 12px;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .content-block {
+            background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #4e73df;
+            transition: transform 0.3s ease;
+        }
+
+        .content-block:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-block h3 {
+            color: #4e73df;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+            color: white;
+            border-radius: 15px;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .course-card {
+            background: white;
+            border: 2px solid #e3e6f0;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 115, 223, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .course-card:hover::before {
+            left: 100%;
+        }
+
+        .course-card:hover {
+            border-color: #4e73df;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(78, 115, 223, 0.3);
+        }
+
+        .course-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(78, 115, 223, 0.4);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(78, 115, 223, 0.6);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(78, 115, 223, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .pricing-table {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #e3e6f0;
+            margin: 20px 0;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #4e73df;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            background: white;
+            color: #28a745;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .trend-chart {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #e3e6f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trend-line-container {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+            border-radius: 10px;
+            position: relative;
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .trend-line-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .trend-path {
+            fill: none;
+            stroke: #e74c3c;
+            stroke-width: 4;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            animation: drawTrend 3s ease-out forwards;
+        }
+
+        .trend-points {
+            fill: #4e73df;
+            animation: showPoints 3s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes drawTrend {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes showPoints {
+            0% { opacity: 0; }
+            70% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .trend-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            padding: 0 20px;
+        }
+
+        .trend-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .trend-stat {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .trend-stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            .slide-header {
+                padding: 30px;
+                margin: -30px -30px 30px -30px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .slide-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">12</span>
+        </div>
+
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div>
+                        <h1>Technology for Youth</h1>
+                        <p>Empowering K-12 Students for Tomorrow's Digital World</p>
+                    </div>
+                </div>
+            </div>
+            <div class="trend-chart">
+                <h3 style="color: #4e73df; text-align: center; margin-bottom: 15px;">📈 Digital Skills Demand Growth (2020-2030)</h3>
+                <div class="trend-line-container">
+                    <svg class="trend-line-svg" viewBox="0 0 400 100">
+                        <!-- Grid lines -->
+                        <defs>
+                            <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 20" fill="none" stroke="#e3e6f0" stroke-width="1" opacity="0.3"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                        
+                        <!-- Trend line showing growth -->
+                        <path class="trend-path" d="M 40 80 Q 120 70 200 45 T 360 15" />
+                        
+                        <!-- Data points -->
+                        <circle class="trend-points" cx="40" cy="80" r="4" />
+                        <circle class="trend-points" cx="200" cy="45" r="4" />
+                        <circle class="trend-points" cx="360" cy="15" r="4" />
+                        
+                        <!-- Labels -->
+                        <text x="40" y="95" text-anchor="middle" font-size="10" fill="#666">2020</text>
+                        <text x="200" y="95" text-anchor="middle" font-size="10" fill="#666">2025</text>
+                        <text x="360" y="95" text-anchor="middle" font-size="10" fill="#666">2030</text>
+                    </svg>
+                </div>
+                <div class="trend-stats">
+                    <div class="trend-stat">
+                        <div class="trend-stat-number">+65%</div>
+                        <div>Digital Skills Jobs</div>
+                    </div>
+                    <div class="trend-stat">
+                        <div class="trend-stat-number">+120%</div>
+                        <div>AI/ML Roles</div>
+                    </div>
+                    <div class="trend-stat">
+                        <div class="trend-stat-number">+85%</div>
+                        <div>Coding Demand</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div>
+                    <h2>Bridging the Digital Divide</h2>
+                    <p>High-quality, scalable, and engaging digital and technology literacy programs for K-12 students across all learning environments.</p>
+                    <div class="stats-container" style="grid-template-columns: repeat(2, 1fr); margin-top: 30px;">
+                        <div class="stat-box">
+                            <div class="stat-number">7+</div>
+                            <div>Years Experience</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">1000s</div>
+                            <div>Students Served</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block">
+                    <h3>Our Mission</h3>
+                    <p>To equip students with essential 21st-century technology skills while empowering teachers with the necessary resources to guide students effectively in the rapidly evolving digital world.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>The Digital Divide Challenge</h2>
+                <p>Critical gaps in K-12 digital literacy education</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                    <div class="stat-number">40%</div>
+                    <div>Students lack basic coding skills</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+                    <div class="stat-number">60%</div>
+                    <div>Teachers need tech training</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+                    <div class="stat-number">3.2M</div>
+                    <div>Tech jobs unfilled by 2030</div>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>Skills Gap Crisis</h3>
+                    <ul class="feature-list">
+                        <li>Students unprepared for digital economy</li>
+                        <li>Limited access to quality tech education</li>
+                        <li>Outdated curriculum and resources</li>
+                        <li>Lack of engaging, age-appropriate content</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>Teacher Challenges</h3>
+                    <ul class="feature-list">
+                        <li>Insufficient training in emerging technologies</li>
+                        <li>Time constraints for curriculum development</li>
+                        <li>Need for ongoing professional development</li>
+                        <li>Lack of comprehensive teaching resources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>TFY Learning Portal Solution</h2>
+                <p>Comprehensive digital literacy platform for K-12 education</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🎓 For Students</h3>
+                    <ul class="feature-list">
+                        <li>Interactive video-based lessons (2-6 minutes)</li>
+                        <li>Hands-on coding and robotics projects</li>
+                        <li>Self-paced learning with progress tracking</li>
+                        <li>Age-appropriate content for K-12</li>
+                        <li>Mobile-responsive, anytime access</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>👨‍🏫 For Teachers</h3>
+                    <ul class="feature-list">
+                        <li>Complete lesson plans and resources</li>
+                        <li>Professional development training</li>
+                        <li>Real-time student progress monitoring</li>
+                        <li>Assessment tools and analytics</li>
+                        <li>No coding experience required</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-grid" style="margin-top: 30px;">
+                <div class="content-block">
+                    <h3>📚 Standards Alignment</h3>
+                    <ul class="feature-list">
+                        <li>ISTE Standards for Students & Educators</li>
+                        <li>CASEL Social-Emotional Learning</li>
+                        <li>Common Core Mathematics & ELA</li>
+                        <li>CSTA Computer Science Standards</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>🏫 Platform Features</h3>
+                    <ul class="feature-list">
+                        <li>FERPA/COPPA compliant security</li>
+                        <li>SSO integration with PowerSchool & Clever</li>
+                        <li>Comprehensive analytics dashboard</li>
+                        <li>Certificate generation and awards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Course Offerings -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Comprehensive Course Catalog</h2>
+                <p>7 Core Digital Literacy Categories</p>
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-icon">💻</div>
+                    <h3>Coding</h3>
+                    <p>Block Programming, Python, JavaScript, HTML/CSS</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">🎮</div>
+                    <h3>Game Development</h3>
+                    <p>Roblox Studio, Minecraft Education</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">🤖</div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>AI Foundations, Practical Tools, Ethics</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">⚙️</div>
+                    <h3>Robotics</h3>
+                    <p>VEX 123, VEX GO, VEX IQ, VEX EXP</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">🎬</div>
+                    <h3>Digital Media</h3>
+                    <p>Video Editing, Animation, AI Tools</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">📱</div>
+                    <h3>Digital Marketing</h3>
+                    <p>SEO, Social Media, Analytics</p>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon">🛡️</div>
+                    <h3>Digital Citizenship</h3>
+                    <p>Online Safety, Privacy, Ethics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Target Market -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Target Market & Opportunity</h2>
+                <p>Massive addressable market in K-12 education</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">50M+</div>
+                    <div>K-12 Students in US</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">130K+</div>
+                    <div>Public & Private Schools</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$80B</div>
+                    <div>EdTech Market Size</div>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>Primary Customers</h3>
+                    <ul class="feature-list">
+                        <li>Public School Districts</li>
+                        <li>Private Schools & Academies</li>
+                        <li>Charter Schools</li>
+                        <li>Homeschool Networks</li>
+                        <li>After-School Programs</li>
+                        <li>Summer STEM Camps</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>Decision Makers</h3>
+                    <ul class="feature-list">
+                        <li>Superintendents & Principals</li>
+                        <li>CTE Directors</li>
+                        <li>STEM Coordinators</li>
+                        <li>Technology Directors</li>
+                        <li>Curriculum Specialists</li>
+                        <li>Grant Administrators</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Competitive Advantages -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Why Choose TFY?</h2>
+                <p>Unique advantages that set us apart</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🎯 Age-Appropriate Pedagogy</h3>
+                    <p>Tailored content for K-12 learners with research-based instructional design that matches cognitive development stages.</p>
+                </div>
+                <div class="content-block">
+                    <h3>🔧 Easy Implementation</h3>
+                    <p>No coding or LMS experience required for teachers. Complete turnkey solution with full training and support.</p>
+                </div>
+                <div class="content-block">
+                    <h3>📊 Comprehensive Analytics</h3>
+                    <p>Real-time progress tracking, completion reports, quiz results, and student feedback for data-driven decisions.</p>
+                </div>
+                <div class="content-block">
+                    <h3>🔗 Seamless Integration</h3>
+                    <p>Works with existing school systems via SSO, PowerSchool, Clever, and 5,000+ platforms through Zapier.</p>
+                </div>
+                <div class="content-block">
+                    <h3>📱 Multi-Device Support</h3>
+                    <p>Fully responsive platform works on Chromebooks, tablets, phones, and desktops for flexible learning.</p>
+                </div>
+                <div class="content-block">
+                    <h3>📋 Standards Aligned</h3>
+                    <p>Curriculum aligned to ISTE, CASEL, Common Core, and CSTA frameworks ensuring educational rigor and compliance.</p>
+                </div>
+                <div class="content-block">
+                    <h3>🏆 Proven Track Record</h3>
+                    <p>7+ years serving thousands of students with established partnerships across the tri-state area.</p>
+                </div>
+                <div class="content-block">
+                    <h3>💡 Future-Ready Skills</h3>
+                    <p>Focus on emerging technologies like AI, robotics, and digital citizenship that prepare students for tomorrow's careers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Success Stories -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Proven Success & Partnerships</h2>
+                <p>Established relationships with leading educational organizations</p>
+            </div>
+            <div class="content-block" style="margin-bottom: 30px;">
+                <h3>🤝 Current Partners</h3>
+                <div class="content-grid">
+                    <div>
+                        <ul class="feature-list">
+                            <li>West Orange Public Schools</li>
+                            <li>The City of East Orange</li>
+                            <li>Montclair Kimberley Academy</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="feature-list">
+                            <li>Jack & Jill of America Foundation</li>
+                            <li>The TEAK Fellowship</li>
+                            <li>Newark Public Schools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <div class="stat-number">95%</div>
+                    <div>Course Completion Rate</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);">
+                    <div class="stat-number">98%</div>
+                    <div>Teacher Satisfaction</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);">
+                    <div class="stat-number">4.8/5</div>
+                    <div>Student Rating</div>
+                </div>
+            </div>
+            <div class="content-block">
+                <h3>🎯 Impact Delivered</h3>
+                <div class="content-grid">
+                    <div>
+                        <ul class="feature-list">
+                            <li>Thousands of students skilled in coding and digital literacy</li>
+                            <li>Improved STEM engagement and performance</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="feature-list">
+                            <li>Teacher confidence in technology instruction</li>
+                            <li>Future-ready workforce preparation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Business Model -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Business Model & Pricing</h2>
+                <p>Flexible licensing and comprehensive service packages</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>💰 Revenue Streams</h3>
+                    <ul class="feature-list">
+                        <li>Student License Subscriptions</li>
+                        <li>Teacher Training & Professional Development</li>
+                        <li>Implementation & Support Services</li>
+                        <li>Custom Content Development</li>
+                        <li>Closing Events & Certification Programs</li>
+                    </ul>
+                </div>
+                <div class="pricing-table">
+                    <h3 style="color: #4e73df; margin-bottom: 20px;">Sample Pricing</h3>
+                    <div class="pricing-row">
+                        <span>Student Licenses (70)</span>
+                        <span>$28,000</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Teacher Licenses (4)</span>
+                        <span>$2,400</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Professional Development</span>
+                        <span>$5,000</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Closing Event</span>
+                        <span>$4,000</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Total Package</span>
+                        <span>$39,400</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-block">
+                <h3>📈 Scalable Model</h3>
+                <p>Subscription-based licensing allows for predictable revenue growth as we expand to new districts and add more students per school. Professional development and events provide additional value-added services.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Technology Platform -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Technology Platform Overview</h2>
+                <p>Secure, scalable, and user-friendly learning management system</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🔒 Security & Compliance</h3>
+                    <ul class="feature-list">
+                        <li>FERPA/COPPA compliant environment</li>
+                        <li>Role-based access controls</li>
+                        <li>HTTPS/TLS 1.2+ communications</li>
+                        <li>Auto-logout and session management</li>
+                        <li>Full user activity logging</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>🔗 Integration Capabilities</h3>
+                    <ul class="feature-list">
+                        <li>SAML SSO with PowerSchool & Clever</li>
+                        <li>Zapier integration (5,000+ platforms)</li>
+                        <li>SIS synchronization</li>
+                        <li>Custom API endpoints</li>
+                        <li>Automated user provisioning</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>📱 Device Compatibility</h3>
+                    <ul class="feature-list">
+                        <li>Chromebooks, Windows, macOS, Linux</li>
+                        <li>iPads, Android tablets, phones</li>
+                        <li>Chrome, Firefox, Safari, Edge</li>
+                        <li>Responsive design for all screen sizes</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>📊 Analytics & Reporting</h3>
+                    <ul class="feature-list">
+                        <li>Real-time progress tracking</li>
+                        <li>Completion rate reports</li>
+                        <li>Quiz results and mastery insights</li>
+                        <li>Student feedback aggregation</li>
+                        <li>Administrative dashboards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Implementation Process -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Implementation Process</h2>
+                <p>Seamless deployment in 4 simple steps</p>
+            </div>
+            <div class="stats-container" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="stat-box">
+                    <div class="stat-number">1</div>
+                    <div>Partnership Setup</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2</div>
+                    <div>Teacher Training</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">3</div>
+                    <div>Student Enrollment</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">4</div>
+                    <div>Program Launch</div>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🚀 Phase 1: Setup (Week 1-2)</h3>
+                    <ul class="feature-list">
+                        <li>Course selection and customization</li>
+                        <li>Platform configuration and branding</li>
+                        <li>SSO integration setup</li>
+                        <li>User account creation</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>👨‍🏫 Phase 2: Training (Week 3)</h3>
+                    <ul class="feature-list">
+                        <li>Full-day teacher professional development</li>
+                        <li>Platform navigation training</li>
+                        <li>Curriculum overview and best practices</li>
+                        <li>Student engagement strategies</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>📚 Phase 3: Enrollment (Week 4)</h3>
+                    <ul class="feature-list">
+                        <li>Student account activation</li>
+                        <li>Course assignments</li>
+                        <li>Initial progress monitoring setup</li>
+                        <li>Technical support verification</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>🎉 Phase 4: Launch & Support</h3>
+                    <ul class="feature-list">
+                        <li>Program kickoff and student orientation</li>
+                        <li>Ongoing technical support</li>
+                        <li>Regular check-ins and optimization</li>
+                        <li>Closing event planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Market Differentiation -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Market Position & Differentiation</h2>
+                <p>How we stand out in the competitive landscape</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🏫 vs. Generic Coding Platforms</h3>
+                    <ul class="feature-list">
+                        <li>Specifically designed for K-12 education</li>
+                        <li>Teacher-centric approach with full support</li>
+                        <li>Comprehensive curriculum beyond just coding</li>
+                        <li>Educational compliance and safety</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>💻 vs. Traditional EdTech</h3>
+                    <ul class="feature-list">
+                        <li>Focus on emerging technologies (AI, Robotics)</li>
+                        <li>Project-based, hands-on learning</li>
+                        <li>Real-world skill development</li>
+                        <li>Future workforce preparation</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-block">
+                <h3>🎯 Our Unique Value Proposition</h3>
+                <div class="content-grid">
+                    <div>
+                        <h4 style="color: #4e73df; margin-bottom: 15px;">Comprehensive Solution</h4>
+                        <p>Not just software - complete program including curriculum, training, support, and celebration events.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #4e73df; margin-bottom: 15px;">Proven Results</h4>
+                        <p>7+ years of experience with measurable outcomes and established partnerships across diverse educational settings.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-section">
+                <h3>Ready to Transform Digital Education in Your District?</h3>
+                <p>Join leading schools already empowering their students with 21st-century skills</p>
+                <button class="cta-btn">Schedule a Demo Today</button>
+            </div>
+        </div>
+
+        <!-- Slide 12: Next Steps & Contact -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Let's Partner Together</h2>
+                <p>Ready to empower your students with digital literacy skills?</p>
+            </div>
+            <div class="content-grid">
+                <div class="content-block">
+                    <h3>🎯 Next Steps</h3>
+                    <ul class="feature-list">
+                        <li>Schedule a personalized demo</li>
+                        <li>Discuss your specific needs and goals</li>
+                        <li>Customize a program for your district</li>
+                        <li>Review implementation timeline</li>
+                        <li>Begin your digital transformation</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <h3>📞 Contact Information</h3>
+                    <p><strong>Technology for Youth</strong></p>
+                    <p>634 Eagle Rock Avenue, Unit #298<br>West Orange, NJ 07052</p>
+                    <p>📧 hello@technologyforyouth.com</p>
+                    <p>🌐 learning.technologyforyouth.com</p>
+                </div>
+            </div>
+            <div class="cta-section">
+                <h3>Together, we can prepare Newark students for success in the 21st-century digital economy</h3>
+                <div class="stats-container" style="grid-template-columns: repeat(3, 1fr); margin-top: 30px;">
+                    <div class="stat-box">
+                        <div class="stat-number">🚀</div>
+                        <div>Future-Ready Skills</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">👥</div>
+                        <div>Empowered Teachers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">🏆</div>
+                        <div>Student Success</div>
+                    </div>
+                </div>
+                <button class="cta-btn">Start Your Journey Today</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Add click handlers for CTA buttons
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const mailtoLink = 'mailto:hello@technologyforyouth.com?subject=Digital%20Literacy%20Presentation%20-%20Getting%20in%20touch';
+                window.location.href = mailtoLink;
+            });
+        });
+    </script>
+</body>
+</html>
