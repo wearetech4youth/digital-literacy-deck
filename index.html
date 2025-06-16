@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technology for Youth - Digital Literacy Presentation</title>
+    <title>Technology for {You}th - Digital Literacy Presentation</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000;
             color: #333;
             overflow-x: hidden;
         }
@@ -447,7 +448,7 @@
                 <div class="logo">
                     <div class="logo-icon"></div>
                     <div>
-                        <h1>Technology for Youth</h1>
+                        <h1>Technology for {You}th</h1>
                         <p>Empowering K-12 Students for Tomorrow's Digital World</p>
                     </div>
                 </div>
@@ -463,15 +464,15 @@
                             </pattern>
                         </defs>
                         <rect width="100%" height="100%" fill="url(#grid)" />
-                        
+
                         <!-- Trend line showing growth -->
                         <path class="trend-path" d="M 40 80 Q 120 70 200 45 T 360 15" />
-                        
+
                         <!-- Data points -->
                         <circle class="trend-points" cx="40" cy="80" r="4" />
                         <circle class="trend-points" cx="200" cy="45" r="4" />
                         <circle class="trend-points" cx="360" cy="15" r="4" />
-                        
+
                         <!-- Labels -->
                         <text x="40" y="95" text-anchor="middle" font-size="10" fill="#666">2020</text>
                         <text x="200" y="95" text-anchor="middle" font-size="10" fill="#666">2025</text>
@@ -1059,13 +1060,13 @@
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
-        
+
         document.getElementById('totalSlides').textContent = totalSlides;
 
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
             slides[index].classList.add('active');
-            
+
             document.getElementById('currentSlide').textContent = index + 1;
             document.getElementById('prevBtn').disabled = index === 0;
             document.getElementById('nextBtn').disabled = index === totalSlides - 1;
